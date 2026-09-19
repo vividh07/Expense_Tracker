@@ -25,11 +25,18 @@ export default function AppLayout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [moreOpen, setMoreOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
-    setMoreOpen(false);
+    setDrawerOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = drawerOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [drawerOpen]);
 
   const onLogout = async () => {
     await logout();
@@ -52,7 +59,7 @@ export default function AppLayout() {
           <div className="side-divider" />
           {moreLinks.map((l) => (
             <NavLink key={l.to} to={l.to} className={({ isActive }) => (isActive ? 'active' : '')}>
-              {l.label}
+              <span>{l.icon}</span> {l.label}
             </NavLink>
           ))}
         </nav>
@@ -66,12 +73,12 @@ export default function AppLayout() {
 
       <main className="app-main">
         <header className="top-bar glass">
+          <button type="button" className="btn btn-ghost btn-menu-mobile" onClick={() => setDrawerOpen(true)}>
+            Menu
+          </button>
           <div className="brand">Expense_Tracker</div>
           <div className="top-actions">
             <ThemeToggle />
-            <button type="button" className="btn btn-ghost btn-more-mobile" onClick={() => setMoreOpen(true)}>
-              More
-            </button>
             <button type="button" className="btn btn-ghost btn-logout-label" onClick={onLogout}>
               Log out
             </button>
@@ -97,48 +104,64 @@ export default function AppLayout() {
         ))}
         <button
           type="button"
-          className={`bottom-more ${moreActive || moreOpen ? 'active' : ''}`}
-          onClick={() => setMoreOpen(true)}
+          className={`bottom-more ${moreActive || drawerOpen ? 'active' : ''}`}
+          onClick={() => setDrawerOpen(true)}
         >
-          <span className="nav-icon">⋯</span>
-          <span>More</span>
+          <span className="nav-icon">☰</span>
+          <span>Menu</span>
         </button>
       </nav>
 
       <AnimatePresence>
-        {moreOpen && (
+        {drawerOpen && (
           <motion.div
-            className="more-sheet-backdrop"
+            className="drawer-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setMoreOpen(false)}
+            onClick={() => setDrawerOpen(false)}
           >
-            <motion.div
-              className="more-sheet glass"
-              initial={{ y: 40, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 24, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+            <motion.aside
+              className="drawer-panel glass"
+              initial={{ x: -28, opacity: 0.8 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -24, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 380, damping: 34 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="more-sheet-handle" />
-              <h3>More</h3>
-              <div className="more-grid">
-                {[...moreLinks, { to: '/app/reports', label: 'Reports', icon: '◉' }].map((l) => (
-                  <NavLink key={l.to} to={l.to} className="more-item" onClick={() => setMoreOpen(false)}>
-                    <span className="more-icon">{l.icon}</span>
-                    <span>{l.label}</span>
+              <div className="brand drawer-brand">Expense_Tracker</div>
+              <p className="drawer-user">Hi, {user?.name?.split(' ')[0]}</p>
+              <nav className="drawer-links">
+                {links.map((l) => (
+                  <NavLink
+                    key={l.to}
+                    to={l.to}
+                    end={l.end}
+                    className={({ isActive }) => (isActive ? 'active' : '')}
+                    onClick={() => setDrawerOpen(false)}
+                  >
+                    <span>{l.icon}</span> {l.label}
                   </NavLink>
                 ))}
-              </div>
-              <div className="more-sheet-actions">
+                <div className="drawer-divider" />
+                {moreLinks.map((l) => (
+                  <NavLink
+                    key={l.to}
+                    to={l.to}
+                    className={({ isActive }) => (isActive ? 'active' : '')}
+                    onClick={() => setDrawerOpen(false)}
+                  >
+                    <span>{l.icon}</span> {l.label}
+                  </NavLink>
+                ))}
+              </nav>
+              <div className="drawer-footer">
                 <ThemeToggle />
                 <button type="button" className="btn btn-ghost" onClick={onLogout}>
                   Log out
                 </button>
               </div>
-            </motion.div>
+            </motion.aside>
           </motion.div>
         )}
       </AnimatePresence>

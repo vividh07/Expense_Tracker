@@ -58,7 +58,42 @@ Designed so you can run **everything on your own laptop**: database, API, and we
 
 ---
 
-## Quick start (this laptop only)
+## Two machines (important)
+
+| | **Coding laptop** (Cursor) | **Deploy laptop** (live site) |
+| --- | --- | --- |
+| Purpose | Develop & test | Host site + real data |
+| `NODE_ENV` | `development` | `production` |
+| Database | `USE_MEMORY_DB=1` OK (or local Mongo) | **Real MongoDB only** — never memory |
+| Frontend | Vite `npm run dev` → `VITE_API_URL=http://localhost:5000/api` | Build with `VITE_API_URL=/api`, Express serves UI |
+| `CLIENT_URL` | `http://localhost:5173` (or 5174/5175) | Tunnel `https://…` or `http://localhost:5000` |
+| Env files | Copy `server/.env.development.example` → `server/.env` | Copy `server/.env.example` → `server/.env` |
+
+**Safety built into code:** if `NODE_ENV=production`, in-memory DB is **blocked** even if someone sets `USE_MEMORY_DB=1`. Auto memory fallback only runs in development.
+
+**Never commit** `server/.env` or `client/.env` — they stay local. Only examples + `client/.env.production` are in git.
+
+---
+
+## Coding laptop — local test (no Mongo required)
+
+```bash
+npm run install:all
+cd server
+copy .env.development.example .env
+cd ../client
+copy .env.example .env
+cd ..
+npm run dev:server
+# other terminal:
+npm run dev:client
+```
+
+Open the Vite URL (e.g. http://localhost:5173). Data resets when the API restarts if using memory DB.
+
+---
+
+## Deploy laptop — production host
 
 ### 1. Install dependencies
 
@@ -84,18 +119,16 @@ NODE_ENV=production
 GOOGLE_CLIENT_ID=
 ```
 
-Leave `USE_MEMORY_DB` unset — that mode does **not** save data to disk.
+Leave `USE_MEMORY_DB` **unset**. Production needs MongoDB Community running.
 
 ### 3. Configure the frontend build (same-origin API)
 
-Create `client/.env.production`:
+`client/.env.production` is already in the repo:
 
 ```env
 VITE_API_URL=/api
 VITE_GOOGLE_CLIENT_ID=
 ```
-
-`/api` means the browser talks to the **same host** that serves the website (your Express server / tunnel URL). Perfect for laptop hosting.
 
 ### 4. Build frontend + start server
 
@@ -251,6 +284,3 @@ Official guide: [Cloudflare Tunnel docs](https://developers.cloudflare.com/cloud
 - Use a strong `JWT_SECRET`  
 - Prefer Cloudflare Tunnel over opening ports on your router  
 - Keep Windows updated; don’t run unknown tools alongside the server  
-
----
-
