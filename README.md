@@ -254,6 +254,3 @@ Official guide: [Cloudflare Tunnel docs](https://developers.cloudflare.com/cloud
 
 ---
 
-## License
-
-Private / personal use unless you add a license file.
