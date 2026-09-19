@@ -18,6 +18,7 @@ const moreLinks = [
   { to: '/app/wallets', label: 'Wallets', icon: '▣' },
   { to: '/app/categories', label: 'Categories', icon: '▤' },
   { to: '/app/recurring', label: 'Recurring', icon: '↻' },
+  { to: '/app/settings', label: 'Settings', icon: '⚙' },
 ];
 
 export default function AppLayout() {

@@ -1,0 +1,30 @@
+.settings-card {
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.settings-card h3 {
+  margin: 0 0 0.75rem;
+}
+
+.settings-hint {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.reset-link-box {
+  word-break: break-all;
+  padding: 0.75rem;
+  border-radius: 12px;
+  background: var(--chip-bg);
+  border: 1px solid var(--glass-border);
+  margin-bottom: 0.85rem;
+  font-size: 0.85rem;
+}
+
+.reset-link-box a {
+  color: var(--accent);
+  font-weight: 600;
+}

@@ -13,6 +13,9 @@ import Wallets from './pages/Wallets';
 import Categories from './pages/Categories';
 import Recurring from './pages/Recurring';
 import Reports from './pages/Reports';
+import Settings from './pages/Settings';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth();
@@ -55,6 +58,15 @@ export default function App() {
         }
       />
       <Route
+        path="/forgot-password"
+        element={
+          <PublicOnly>
+            <ForgotPassword />
+          </PublicOnly>
+        }
+      />
+      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route
         path="/app"
         element={
           <PrivateRoute>
@@ -71,6 +83,7 @@ export default function App() {
         <Route path="categories" element={<Categories />} />
         <Route path="recurring" element={<Recurring />} />
         <Route path="reports" element={<Reports />} />
+        <Route path="settings" element={<Settings />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

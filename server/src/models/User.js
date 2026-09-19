@@ -7,6 +7,8 @@ const userSchema = new mongoose.Schema(
     passwordHash: { type: String },
     googleId: { type: String },
     avatar: { type: String },
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Date },
   },
   { timestamps: true }
 );

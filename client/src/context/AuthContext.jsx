@@ -55,7 +55,16 @@ export function AuthProvider({ children }) {
   };
 
   const value = useMemo(
-    () => ({ user, loading, login, register, loginWithGoogle, logout, refresh }),
+    () => ({
+      user,
+      loading,
+      login,
+      register,
+      loginWithGoogle,
+      logout,
+      refresh,
+      setUser,
+    }),
     [user, loading, refresh]
   );
 
