@@ -1,0 +1,58 @@
+.auth-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 4.5rem 1rem 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.auth-card {
+  width: min(420px, 100%);
+  padding: 1.35rem 1.15rem;
+}
+
+@media (min-width: 480px) {
+  .auth-card {
+    padding: 1.75rem;
+  }
+}
+
+.auth-brand {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.auth-card h1 {
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+.auth-sub {
+  color: var(--muted);
+  margin: 0.35rem 0 1.25rem;
+}
+
+.auth-submit {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.google-wrap {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-switch {
+  text-align: center;
+  color: var(--muted);
+  margin: 1.25rem 0 0;
+}
+
+.auth-switch a {
+  color: var(--accent);
+  font-weight: 600;
+}

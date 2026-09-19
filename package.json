@@ -1,0 +1,15 @@
+{
+  "name": "Expense_Tracker",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Expense_Tracker — MERN everyday expense tracker (laptop self-host ready)",
+  "scripts": {
+    "install:all": "npm --prefix server install && npm --prefix client install",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "build:prod": "npm --prefix client run build -- --mode production",
+    "start": "npm --prefix server start",
+    "host": "npm run build && npm start"
+  }
+}

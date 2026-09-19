@@ -1,0 +1,105 @@
+.landing {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 4.5rem 1rem 2rem;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .landing {
+    padding: 2rem 1.25rem 3rem;
+  }
+}
+
+.landing-glow {
+  position: absolute;
+  inset: -15% auto auto 25%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(0, 113, 227, 0.18), transparent 65%);
+  pointer-events: none;
+  filter: blur(20px);
+}
+
+[data-theme='dark'] .landing-glow {
+  background: radial-gradient(circle, rgba(10, 132, 255, 0.22), transparent 65%);
+}
+
+.landing-hero {
+  max-width: 640px;
+  text-align: center;
+  z-index: 1;
+}
+
+.landing-brand {
+  font-size: clamp(2.5rem, 8vw, 4.1rem);
+  font-weight: 800;
+  margin: 0 0 0.75rem;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.landing-hero h1 {
+  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+  font-weight: 600;
+  margin: 0 0 0.85rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.landing-sub {
+  color: var(--muted);
+  margin: 0 auto 1.5rem;
+  max-width: 42ch;
+  line-height: 1.55;
+}
+
+.landing-cta {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.landing-panel {
+  margin-top: 2.5rem;
+  width: min(420px, 100%);
+  padding: 1.25rem 1.4rem;
+  z-index: 1;
+}
+
+.lp-row {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.lp-row strong {
+  color: var(--text);
+}
+
+.lp-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.lp-bars div {
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--amber));
+}
+
+.lp-note {
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
